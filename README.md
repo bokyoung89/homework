@@ -39,3 +39,18 @@
 * **효율성**
   * 시간 복잡도에 대한 이해
   * 프로젝트에 적절한 외부 라이브러리 선택
+
+## ERD 설계
+![29CM_상품주문_ERD drawio](https://github.com/bokyoung89/pre-order-service/assets/58727604/2f0163a1-d5bc-4592-933a-09bd8677d9b8)
+* 주문상품(order_item)
+  * 상품과 주문은 다대다 관계이므로 다대일 관계로 풀어주기 위한 매핑 테이블
+  * 주문 시 상품번호(item_id), 주문수량(order_id)을 입력받아 주문가격(price)을 계산함
+* 상품(item)
+  * 하나의 상품 번호로 여러 개의 주문이 생성될 수 있으므로 주문상품과 다대일 단방향 관계
+* 주문(Orders)
+  * 한번에 여러 개의 상품을 같이 주문할 수 있어야 하므로 주문과 주문상품(OrderProduct)은 일대다 관계
+  * 주문상태는 주문(ORDER), 취소(CANCEL)로 표현함. 주문 시 생성일시가 insert되고, 취소 시 삭제일시가 update됨
+  * 전체주문가격(total_price)을 필드로 두고 역정규화함  배송료가 포함된 가격(주문 금액이 5만원 미만인 경우). 
+
+## API 명세서
+링크 : [https://sbk8689.gitbook.io/29cm/](https://sbk8689.gitbook.io/29cm/)
