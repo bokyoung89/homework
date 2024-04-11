@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.domain;
+package kr.co._29cm.homework.domain.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
