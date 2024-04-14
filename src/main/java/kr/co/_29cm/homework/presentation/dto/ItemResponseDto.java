@@ -3,6 +3,8 @@ package kr.co._29cm.homework.presentation.dto;
 import kr.co._29cm.homework.domain.entity.Item;
 import lombok.Getter;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Getter
 public class ItemResponseDto {
     private Long id;
