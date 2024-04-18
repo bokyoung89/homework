@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.config;
+package kr.co._29cm.homework.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

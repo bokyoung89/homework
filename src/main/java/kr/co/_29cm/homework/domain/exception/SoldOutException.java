@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.exception;
+package kr.co._29cm.homework.domain.exception;
 
 import lombok.Getter;
 

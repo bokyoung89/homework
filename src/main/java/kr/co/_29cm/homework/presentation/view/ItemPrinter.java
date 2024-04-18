@@ -16,7 +16,7 @@ public class ItemPrinter {
     private static final String ITEM_FORMAT = "%-10s%-50s%-10s%-10s\n";
 
     public void itemList() {
-        List<ItemResponseDto> items = itemService.findAll();
+        List<ItemResponseDto> items = itemService.getAllItem();
         printItemHeader(); // 헤더 출력
         for(ItemResponseDto item : items) {
             printItem(item); // 상품 정보 출력

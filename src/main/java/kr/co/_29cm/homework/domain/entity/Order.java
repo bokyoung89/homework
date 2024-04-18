@@ -7,7 +7,6 @@ import org.hibernate.annotations.SQLDelete;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 @Getter
 @Setter
@@ -34,18 +33,16 @@ public class Order {
     private LocalDateTime deletedAt;
 
     //배송비
-    private static final int Delivery_Fee = 2500;
-
-    //무료 배송 금액
-    private static final int Free_Delivery_Amount = 50000;
+    private int delivery_fee;
 
     @Builder
-    public Order(Long id, List<OrderItem> orderItems, int totalPrice, OrderStatus orderStatus, LocalDateTime createdAt, LocalDateTime deletedAt) {
+    public Order(Long id, List<OrderItem> orderItems, int totalPrice, OrderStatus orderStatus, LocalDateTime createdAt, LocalDateTime deletedAt, int delivery_fee) {
         this.id = id;
         this.orderItems = orderItems;
         this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
         this.createdAt = createdAt;
+        this.delivery_fee = delivery_fee;
     }
 
     /**
@@ -61,12 +58,15 @@ public class Order {
      */
     public static Order createOrder(OrderItem... orderItems) {
         Order order = new Order();
+
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
         }
-        order.calculateTotalPrice();
+
         order.setOrderStatus(OrderStatus.ORDER);
         order.setCreatedAt(LocalDateTime.now());
+        order.calculateTotalPrice();
+
         return order;
     }
 
@@ -76,6 +76,10 @@ public class Order {
     public int calculateTotalPrice() {
         for (OrderItem orderItem : orderItems) {
             totalPrice += orderItem.orderItemTotalPrice();
+        }
+        //주문 총액이 50,000원 이하일 때 배송비 컬럼 추가
+        if (totalPrice < 50000) {
+            delivery_fee = 2500;
         }
         return totalPrice;
     }
