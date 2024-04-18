@@ -3,8 +3,8 @@ package kr.co._29cm.homework.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class OrderItem {
@@ -33,6 +33,9 @@ public class OrderItem {
         this.order = order;
         this.count = count;
         this.price = price;
+        if (order != null) {
+            order.addOrderItem(this); // Order 객체의 addOrderItem 메서드를 호출하여 order 필드 업데이트
+        }
     }
 
     public static OrderItem createOrderItem(Item item, int price, int count) {
@@ -46,19 +49,10 @@ public class OrderItem {
         return orderItem;
     }
 
-    public OrderItem updateOrder(Order order) {
-        this.order = order;
-
-        return this;
-    }
-
-    //주문상품 전체 가격 계산
+    /**
+     * 주문상품 전체 금액 계산
+     */
     public int orderItemTotalPrice() {
         return getPrice() * getCount();
-    }
-
-    //주문 취소 시 재고 원복
-    public void cancel() {
-        getItem().increaseStock(count);
     }
 }

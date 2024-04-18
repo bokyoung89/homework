@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
@@ -17,5 +18,5 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT i FROM Item i WHERE i.id = :id")
-    Item findByIdWithPessimisticLock(@Param("id") Long id);
+    Optional<Item> findByIdWithPessimisticLock(@Param("id") Long id);
 }

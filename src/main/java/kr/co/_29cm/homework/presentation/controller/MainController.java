@@ -1,8 +1,8 @@
-package kr.co._29cm.homework.presentation;
+package kr.co._29cm.homework.presentation.controller;
 
 import kr.co._29cm.homework.application.OrderService;
-import kr.co._29cm.homework.exception.ItemNotFountException;
-import kr.co._29cm.homework.exception.SoldOutException;
+import kr.co._29cm.homework.domain.exception.ItemNotFoundException;
+import kr.co._29cm.homework.domain.exception.SoldOutException;
 import kr.co._29cm.homework.presentation.dto.OrderItemRequestDto;
 import kr.co._29cm.homework.presentation.view.ConsolePrinter;
 import kr.co._29cm.homework.presentation.view.ItemPrinter;
@@ -69,14 +69,14 @@ public class MainController {
         return orderItems;
     }
 
-    private void processOrder(List<OrderItemRequestDto> orderItems) {
+    private void processOrder(List<OrderItemRequestDto> orderItemRequestDtos) {
         try {
             // 상품번호와 수량으로 주문 생성
-            Long orderId = orderService.order(orderItems.toArray(new OrderItemRequestDto[0]));
+            Long orderId = orderService.placeOrder(orderItemRequestDtos);
 
             // 주문 조회
             orderPrinter.printOrderResult(orderId);
-        } catch (SoldOutException | ItemNotFountException e) {
+        } catch (SoldOutException | ItemNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }

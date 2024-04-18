@@ -1,10 +1,8 @@
 package kr.co._29cm.homework.domain.entity;
 
 import jakarta.persistence.*;
-import kr.co._29cm.homework.exception.SoldOutException;
+import kr.co._29cm.homework.domain.exception.SoldOutException;
 import lombok.*;
-
-import java.util.regex.Pattern;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -29,13 +27,6 @@ public class Item {
     }
 
     /**
-     * 재고 증가
-     */
-    public void increaseStock(int count) {
-        this.stockQuantity += count;
-    }
-
-    /**
      * 재고 감소
      */
     public void decreaseStock(int count, Long itemId) {
@@ -44,5 +35,12 @@ public class Item {
             throw new SoldOutException("SoldOutException 발생. 주문한 상품량이 재고량보다 큽니다. - 상품번호 : "  + itemId);
         }
         this.stockQuantity = remainStock;
+    }
+
+    /**
+     * 재고 증가
+     */
+    public void increaseStock(int count) {
+        this.stockQuantity += count;
     }
 }

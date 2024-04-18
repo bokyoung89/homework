@@ -11,6 +11,7 @@ CREATE TABLE orders
     order_id bigint	NOT NULL AUTO_INCREMENT PRIMARY KEY,
     total_price integer	NOT NULL,
     order_status varchar(255) NOT NULL,
+    delivery_fee integer,
     created_At datetime NOT NULL,
     deleted_At datetime
 );
